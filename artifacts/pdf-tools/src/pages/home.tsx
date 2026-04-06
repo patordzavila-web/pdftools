@@ -31,7 +31,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
             <FileText className="h-6 w-6" />
-            <span className="font-bold text-xl tracking-tight">PDF Tools</span>
+            <span className="font-bold text-xl tracking-tight">PDFTOOLS</span>
           </Link>
         </div>
       </header>
@@ -41,7 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </main>
 
       <footer className="py-6 px-6 text-center text-sm text-muted-foreground border-t border-border bg-background">
-        <p>PDF Tools &copy; {new Date().getFullYear()} — Client-side PDF processing</p>
+        <p>PDFTOOLS &copy; {new Date().getFullYear()} — Client-side PDF processing</p>
       </footer>
     </div>
   );

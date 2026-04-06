@@ -54,8 +54,8 @@ export function PDFtoPDFA() {
         pdfDoc.setKeywords(keywords);
       }
       
-      pdfDoc.setCreator('PDF Tools');
-      pdfDoc.setProducer('PDF Tools');
+      pdfDoc.setCreator('PDFTOOLS');
+      pdfDoc.setProducer('PDFTOOLS');
 
       const pdfBytes = await pdfDoc.save();
       const blob = new Blob([pdfBytes], { type: "application/pdf" });
