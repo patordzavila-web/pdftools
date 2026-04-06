@@ -50,21 +50,32 @@ export function ImagesToPDF() {
     });
   };
 
+  const MAX_DIM = 2400;
+
   const loadImageToCanvas = (file: File): Promise<HTMLCanvasElement> => {
     return new Promise((resolve, reject) => {
       const objectUrl = URL.createObjectURL(file);
       const img = new Image();
       img.onload = () => {
+        let w = img.naturalWidth;
+        let h = img.naturalHeight;
+        if (w > MAX_DIM || h > MAX_DIM) {
+          const ratio = Math.min(MAX_DIM / w, MAX_DIM / h);
+          w = Math.round(w * ratio);
+          h = Math.round(h * ratio);
+        }
         const canvas = document.createElement('canvas');
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
+        canvas.width = w;
+        canvas.height = h;
         const ctx = canvas.getContext('2d');
         if (!ctx) { URL.revokeObjectURL(objectUrl); reject(new Error('Canvas context unavailable')); return; }
-        ctx.drawImage(img, 0, 0);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
         URL.revokeObjectURL(objectUrl);
         resolve(canvas);
       };
-      img.onerror = () => { URL.revokeObjectURL(objectUrl); reject(new Error(`Failed to load ${file.name}`)); };
+      img.onerror = () => { URL.revokeObjectURL(objectUrl); reject(new Error(`Failed to load image: ${file.name}`)); };
       img.src = objectUrl;
     });
   };
@@ -78,13 +89,13 @@ export function ImagesToPDF() {
 
       for (const file of files) {
         const canvas = await loadImageToCanvas(file);
-        const pngBytes = await new Promise<ArrayBuffer>((resolve, reject) => {
+        const jpgBytes = await new Promise<ArrayBuffer>((resolve, reject) => {
           canvas.toBlob(blob => {
-            if (!blob) { reject(new Error('Canvas toBlob failed')); return; }
+            if (!blob) { reject(new Error('Could not encode image — try a different file')); return; }
             blob.arrayBuffer().then(resolve).catch(reject);
-          }, 'image/png');
+          }, 'image/jpeg', 0.92);
         });
-        const image = await pdfDoc.embedPng(pngBytes);
+        const image = await pdfDoc.embedJpg(jpgBytes);
 
         const dims = image.scale(1);
         const page = pdfDoc.addPage([dims.width, dims.height]);
@@ -107,7 +118,7 @@ export function ImagesToPDF() {
       console.error(error);
       toast({
         title: "Conversion failed",
-        description: "An error occurred while converting the images.",
+        description: error instanceof Error ? error.message : String(error),
         variant: "destructive"
       });
     } finally {
