@@ -71,10 +71,7 @@ export function PDFToWord() {
         ],
       });
 
-      const buffer = await Packer.toBuffer(doc);
-      const blob = new Blob([buffer], {
-        type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      });
+      const blob = await Packer.toBlob(doc);
       setResultBlob(blob);
 
       toast({
