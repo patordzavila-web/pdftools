@@ -22,9 +22,10 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **Type**: React + Vite (frontend-only, no backend)
 - **Preview path**: `/`
 - **Description**: iLovePDF clone — browser-based PDF toolkit
-- **Tools**: Merge, Split, Compress, PDF to Images, Images to PDF, Rotate, Watermark
-- **Libraries**: `pdf-lib` (PDF manipulation), `pdfjs-dist` (PDF rendering), `file-saver` (downloads)
-- All PDF processing happens client-side in the browser
+- **Tools**: Merge, Split, Compress, Rotate, Watermark, Reorder, PDF to Word/PPT/Excel, Word/Excel/PPT/HTML to PDF, Edit PDF, Sign PDF, Lock/Unlock PDF, PDF to PDF/A, Scan PDF, OCR PDF
+- **Libraries**: `pdf-lib`, `pdfjs-dist`, `file-saver`, `docx`, `xlsx`, `pptxgenjs`, `mammoth`, `tesseract.js`, `html2canvas`, `jspdf`
+- All PDF processing happens client-side in the browser — files never leave the user's device
+- Home page organized into categories: Optimize & Organize, Convert from PDF, Convert to PDF, Edit & Annotate, Security, Advanced Tools
 
 ## Key Commands
 
