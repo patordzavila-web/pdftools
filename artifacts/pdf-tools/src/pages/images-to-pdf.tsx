@@ -78,8 +78,12 @@ export function ImagesToPDF() {
 
       for (const file of files) {
         const canvas = await loadImageToCanvas(file);
-        const pngDataUrl = canvas.toDataURL('image/png');
-        const pngBytes = await fetch(pngDataUrl).then(r => r.arrayBuffer());
+        const pngBytes = await new Promise<ArrayBuffer>((resolve, reject) => {
+          canvas.toBlob(blob => {
+            if (!blob) { reject(new Error('Canvas toBlob failed')); return; }
+            blob.arrayBuffer().then(resolve).catch(reject);
+          }, 'image/png');
+        });
         const image = await pdfDoc.embedPng(pngBytes);
 
         const dims = image.scale(1);
