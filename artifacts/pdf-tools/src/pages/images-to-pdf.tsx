@@ -50,6 +50,25 @@ export function ImagesToPDF() {
     });
   };
 
+  const loadImageToCanvas = (file: File): Promise<HTMLCanvasElement> => {
+    return new Promise((resolve, reject) => {
+      const objectUrl = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) { URL.revokeObjectURL(objectUrl); reject(new Error('Canvas context unavailable')); return; }
+        ctx.drawImage(img, 0, 0);
+        URL.revokeObjectURL(objectUrl);
+        resolve(canvas);
+      };
+      img.onerror = () => { URL.revokeObjectURL(objectUrl); reject(new Error(`Failed to load ${file.name}`)); };
+      img.src = objectUrl;
+    });
+  };
+
   const handleConvert = async () => {
     if (files.length === 0) return;
 
@@ -58,17 +77,10 @@ export function ImagesToPDF() {
       const pdfDoc = await PDFDocument.create();
 
       for (const file of files) {
-        const imageBytes = await file.arrayBuffer();
-        let image;
-        
-        if (file.type === 'image/png') {
-          image = await pdfDoc.embedPng(imageBytes);
-        } else if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
-          image = await pdfDoc.embedJpg(imageBytes);
-        } else {
-          // Fallback, skip unsupported types for now
-          continue;
-        }
+        const canvas = await loadImageToCanvas(file);
+        const pngDataUrl = canvas.toDataURL('image/png');
+        const pngBytes = await fetch(pngDataUrl).then(r => r.arrayBuffer());
+        const image = await pdfDoc.embedPng(pngBytes);
 
         const dims = image.scale(1);
         const page = pdfDoc.addPage([dims.width, dims.height]);
