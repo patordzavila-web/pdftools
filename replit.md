@@ -16,6 +16,16 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
 
+## Artifacts
+
+### PDF Tools (`artifacts/pdf-tools`)
+- **Type**: React + Vite (frontend-only, no backend)
+- **Preview path**: `/`
+- **Description**: iLovePDF clone — browser-based PDF toolkit
+- **Tools**: Merge, Split, Compress, PDF to Images, Images to PDF, Rotate, Watermark
+- **Libraries**: `pdf-lib` (PDF manipulation), `pdfjs-dist` (PDF rendering), `file-saver` (downloads)
+- All PDF processing happens client-side in the browser
+
 ## Key Commands
 
 - `pnpm run typecheck` — full typecheck across all packages
