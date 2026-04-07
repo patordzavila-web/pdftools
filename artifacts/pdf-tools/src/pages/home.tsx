@@ -58,6 +58,9 @@ export function Layout({ children, title, description }: {
 
         <footer className="py-6 px-6 text-center text-sm text-muted-foreground border-t border-border bg-background">
           <p>PDFTOOLS &copy; {new Date().getFullYear()} — All processing happens in your browser. Your files never leave your device.</p>
+          <div className="mt-2 flex justify-center gap-4">
+            <Link href="/privacy-policy" className="hover:text-foreground transition-colors underline underline-offset-2">Privacy Policy</Link>
+          </div>
         </footer>
       </div>
     </>

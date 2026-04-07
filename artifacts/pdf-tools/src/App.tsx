@@ -32,6 +32,7 @@ import { PageNumbers } from "@/pages/page-numbers";
 import { CropPDF } from "@/pages/crop-pdf";
 import { ComparePDF } from "@/pages/compare-pdf";
 import { TranslatePDF } from "@/pages/translate-pdf";
+import { PrivacyPolicy } from "@/pages/privacy-policy";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +65,7 @@ function Router() {
       <Route path="/crop-pdf" component={CropPDF} />
       <Route path="/compare-pdf" component={ComparePDF} />
       <Route path="/translate-pdf" component={TranslatePDF} />
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route component={NotFound} />
     </Switch>
   );
