@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 import { getRecentFiles, clearRecentFiles, formatFileSize, formatTimeAgo, type RecentFile } from "@/lib/recent-files";
+import { HorizontalAd } from "@/components/ad-unit";
 
 export function Layout({ children, title, description }: {
   children: React.ReactNode;
@@ -50,6 +51,9 @@ export function Layout({ children, title, description }: {
 
         <main className="flex-1 w-full bg-muted/30">
           {children}
+          <div className="max-w-4xl mx-auto px-6 pb-8">
+            <HorizontalAd className="rounded-xl overflow-hidden" />
+          </div>
         </main>
 
         <footer className="py-6 px-6 text-center text-sm text-muted-foreground border-t border-border bg-background">
@@ -174,8 +178,10 @@ export function Home() {
 
         <RecentFilesSection />
 
+        <HorizontalAd className="mb-12 rounded-xl overflow-hidden" />
+
         <div className="space-y-14">
-          {categories.map((category) => (
+          {categories.map((category, idx) => (
             <div key={category.name}>
               <h2 className="text-2xl font-bold mb-6 text-foreground border-b pb-2">{category.name}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -193,6 +199,9 @@ export function Home() {
                   </Link>
                 ))}
               </div>
+              {idx === 1 && (
+                <HorizontalAd className="mt-10 rounded-xl overflow-hidden" />
+              )}
             </div>
           ))}
         </div>
