@@ -47,3 +47,12 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+# pnpm
+.pnpm-debug.log*
+setup-pnpm-store.js
+
+# Vite / Replit extras
+.replit
+.agents/
+.env*
+!.env.example
