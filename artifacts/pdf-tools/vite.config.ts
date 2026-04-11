@@ -3,13 +3,26 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
-// Usamos el puerto 5173 por defecto, o el de Replit si existe
 const port = process.env.PORT ? Number(process.env.PORT) : 5173;
-// Usamos '/' por defecto para la ruta base
-const basePath = process.env.BASE_PATH || "/";
 
 export default defineConfig({
+  // Mantenemos los plugins para que no se rompa el diseño (Tailwind) ni React
+  plugins: [react(), tailwindcss()],
+  
+  // Esta es la pieza que le faltaba a Vercel para entender el @
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+
+  server: {
+    port: port,
+    host: "0.0.0.0",
+  },
+
   build: {
+    chunkSizeWarningLimit: 1600,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -20,4 +33,4 @@ export default defineConfig({
       },
     },
   },
-})
+});
