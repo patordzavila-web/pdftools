@@ -190,9 +190,9 @@ export function Home() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {category.tools.map((tool) => (
                   <Link key={tool.title} href={tool.href} className="block group">
-                    <Card className="h-full transition-all duration-300 hover:shadow-md hover:-translate-y-1 hover:border-primary/30 bg-card cursor-pointer">
+                    <Card className={`h-full transition-all duration-300 hover:shadow-md hover:-translate-y-1 hover:border-primary/30 ${tool.bg} cursor-pointer`}>
                       <CardContent className="p-6 flex flex-col h-full">
-                        <div className={`p-4 rounded-xl w-14 h-14 flex items-center justify-center mb-4 ${tool.bg} ${tool.color} group-hover:scale-110 transition-transform duration-300`}>
+                        <div className={`p-4 rounded-xl w-14 h-14 flex items-center justify-center mb-4 bg-white ${tool.color} group-hover:scale-110 transition-transform duration-300`}>
                           <tool.icon className="h-7 w-7" />
                         </div>
                         <h3 className="text-lg font-semibold mb-1">{tool.title}</h3>
