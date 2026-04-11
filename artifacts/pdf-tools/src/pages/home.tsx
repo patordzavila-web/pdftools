@@ -33,7 +33,7 @@ export function Layout({ children, title, description }: {
         <meta name="robots" content="index, follow" />
       </Helmet>
       <div className="min-h-[100dvh] flex flex-col">
-        <header className="bg-primary text-primary-foreground py-4 px-6 shadow-sm sticky top-0 z-10">
+        <header className="bg-violet-500 text-primary-foreground py-4 px-6 shadow-sm sticky top-0 z-10">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
               <FileText className="h-6 w-6" />
