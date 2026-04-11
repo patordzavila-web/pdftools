@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
+import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "./components/ui/toaster"
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -84,6 +85,7 @@ function App() {
           </TooltipProvider>
         </QueryClientProvider>
       </ThemeProvider>
+      <Analytics />
     </HelmetProvider>
   );
 }
